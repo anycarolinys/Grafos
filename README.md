@@ -8,4 +8,4 @@ Representação e algoritmos computacionais para Grafos.
 * Algoritmo de Prim
 * Algoritmo Húngaro
 * Biblioteca NetworkX
-<img src="Images/graph.gif
+<img src="Images/graph.gif>
