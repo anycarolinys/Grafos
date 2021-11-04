@@ -1,0 +1,23 @@
+1) Inicialize as chaves de todos os vértices como infinitos e os pais de todos os vértices como -1.
+
+2) Crie um priority_queue pq vazio. Cada item de pq é um par (peso, vértice). O peso (ou chave) é usado como primeiro item do par, já que o primeiro item é usado por padrão para comparar dois pares.
+
+3) Inicialize todos os vértices como não fazendo parte do MST ainda. Usamos array booleano] inMST [] para esse propósito. Esta matriz é necessária para garantir que um vértice já considerado não seja incluído em pq novamente. É aqui que a implementação de Prim difere de Dijkstra. No algoritmo de Dijkstra, não precisamos desse array, pois as distâncias sempre aumentam. Exigimos esta matriz aqui porque o valor da chave de um vértice processado pode diminuir se não for verificado.
+
+4) Insira o vértice de origem em pq e faça sua chave como 0.
+
+5) Enquanto nenhum pq não fica vazio
+    a) Extraia o vértice chave mínimo de pq.
+       Seja o vértice extraído u.
+    b) Inclua u no MST usando inMST [u] = verdadeiro.
+    c) Faça um loop por todos os adjacentes de u e faça o seguinte para cada vértice v.
+
+           // Se o peso da aresta (u, v) for menor que a chave de "v" e "v" ainda não estiver no MST
+           If inMST [v] = false && key [v]> weight (u, v)
+
+               (i) Atualize a chave de v, ou seja, faça
+                     chave [v] = peso (u, v)
+               (ii) Insira v no pq
+               (iv) pai [v] = u
+               
+6) Imprima bordas MST usando matriz pai.
