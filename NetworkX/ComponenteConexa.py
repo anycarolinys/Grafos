@@ -14,8 +14,7 @@ def componentesConexas(Grafo):
             buscaProfundidade(Grafo, n, vetorComponentes, numComponentes)
             numComponentes += 1
             
-    print(numComponentes)
-    return vetorComponentes
+    return numComponentes, vetorComponentes
 
 
 def buscaProfundidade(Grafo, vertice, vetorComponentes, componente):
@@ -28,60 +27,44 @@ def buscaProfundidade(Grafo, vertice, vetorComponentes, componente):
 
 
 def drawGraph(graph, density = False):
-    # Extraindo as arestas e os pesos
-    # edges, weights = zip(*nx.get_edge_attributes(graph, 'weight').items()) 
     pos = nx.spring_layout(graph, k=0.05, seed = 42)
     nx.draw_networkx(graph,
                     pos,
                     with_labels = True,
                     node_size = 400,
                     node_color = "mistyrose",
-                    # edgelist = edges,
-                    # edge_color = weights,
                     edge_cmap = plt.cm.Blues_r,
                     style = "solid",
                     width = 1)
-    
-    # plt.subplots_adjust(left = 2, bottom = 3.2, right = 6, top = 6)
-    
-    if density:
-        print("----------------------------------------")
-        print("Density:",nx.classes.function.density(graph))
-        print("----------------------------------------")
-    
-    return plt.show()
 
 
 # Gerando um grafo de partição aleatória gaussiana
-# Quantidade de nós = 50
-# Tamanho médio do cluster = 10
+# Quantidade de nós = 500
+# Tamanho médio do cluster = 50
 # Parâmetro de forma (variação do tamanho da distribuição do cluster é a média dividida por este valor) = 10
-# Probabilidade de conexão dos nós dentro dos clusters = 8%
-# Probabilidade de conexão dos nós entre os clusters = 2%
+# Probabilidade de conexão dos nós dentro dos clusters = 0.5%
+# Probabilidade de conexão dos nós entre os clusters = 0.2%
 # Grafo direcionado = não
 
-GrafoNormal = nx.gaussian_random_partition_graph(100, 10, 10, 0.05, 0.02)
+GrafoNormal = nx.gaussian_random_partition_graph(500, 50, 10, 0.005, 0.002)
 
-componente = componentesConexas(GrafoNormal)
+qtdComponentes, componente = componentesConexas(GrafoNormal)
 
 Componentes = nx.Graph()
 
 conjuntoComponentes = [[] for i in range(len(componente))]
+
 selecionada = []
 
 for n in GrafoNormal.nodes():
         if (componente[n] not in selecionada):
-            print("Componente = %d" % (componente[n]))
             for i in range(n, GrafoNormal.number_of_nodes()):
                 if componente[i] == componente[n]:
                     conjuntoComponentes[componente[n]].append(i)
-                    print("Vertice %d" % (i))
-            selecionada.append(componente[n])
+            selecionada.append(componente[n]) 
 
 print("Conjunto de componentes: ")
 print(conjuntoComponentes)
-
-drawGraph(GrafoNormal)
 
 for componente in conjuntoComponentes:
     if len(componente) == 1:
@@ -90,7 +73,11 @@ for componente in conjuntoComponentes:
             for n in GrafoNormal.neighbors(vertice):
                 Componentes.add_edges_from([(vertice, n)])
     if Componentes.number_of_nodes() > 0:
+        plt.figure("Grafo Original")
+        drawGraph(GrafoNormal)
+        plt.figure("Componente")
         drawGraph(Componentes)
+        plt.show()
         Componentes.clear()
 
 """ selecionada = []

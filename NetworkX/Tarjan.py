@@ -1,3 +1,5 @@
+# Algoritmo de Tarjan
+# Este algoritmo é implmentando pelo método 'nx.strongly_connected_components' da biblioteca Networkx
 import networkx as nx
 import matplotlib.pyplot as plt
 from Stack import Stack
@@ -6,15 +8,6 @@ numPreOrdem = 0
 cc = 0
 pre = []
 stack = Stack()
-
-# Algoritmo de Tarjan
-
-# Este algoritmo é implmentando pelo método 'nx.strongly_connected_components' da biblioteca Networkx
-
-''' A função componentesFortes devolve o número de componentes 
-fortes do grafo Grafo e armazena no vetor 'componentes', o 
-qual é indexado pelos vértices do grafo Grafo. Assim,
-para cada vértice v do Grafo, componente[v] indica o rótulo da componente forte que contém v '''
 
 
 def componentesFortes(Grafo):
@@ -62,55 +55,23 @@ def buscaProfundaComponente(Grafo, vertice, componentes, low):
             componentes[u] = cc
         cc += 1
 
-def drawGraph(graph, density = False):
-    # Extraindo as arestas e os pesos
-    # edges, weights = zip(*nx.get_edge_attributes(graph, 'weight').items()) 
-    pos = nx.spring_layout(graph, k=0.5, seed = 42)
+def drawGraph(graph):
+
+    position2 = nx.spring_layout(graph, k=0.5, seed = 42)
     nx.draw_networkx(graph,
-                    pos,
+                    position2,
                     with_labels = True,
                     node_size = 400,
                     node_color = "mistyrose",
-                    # edgelist = edges,
-                    # edge_color = weights,
                     edge_cmap = plt.cm.Blues_r,
                     style = "solid",
                     width = 1)
-    
-    # plt.subplots_adjust(left = 2, bottom = 3.2, right = 6, top = 6)
-    
-    if density:
-        print("----------------------------------------")
-        print("Density:",nx.classes.function.density(graph))
-        print("----------------------------------------")
-    
-    return plt.show()
 
+# GrafoDirigido = nx.gaussian_random_partition_graph(500, 50, 10, 0.5, 0.2, True)
 
 GrafoDirigido = nx.DiGraph()
 
-GrafoDirigido.add_edge(0,1)
-GrafoDirigido.add_edge(0,5)
-GrafoDirigido.add_edge(2,0)
-GrafoDirigido.add_edge(2,3)
-GrafoDirigido.add_edge(3,2)
-GrafoDirigido.add_edge(3,5)
-GrafoDirigido.add_edge(4,2)
-GrafoDirigido.add_edge(4,3)
-GrafoDirigido.add_edge(5,4)
-GrafoDirigido.add_edge(6,0)
-GrafoDirigido.add_edge(6,4)
-GrafoDirigido.add_edge(6,9)
-GrafoDirigido.add_edge(7,6)
-GrafoDirigido.add_edge(7,8)
-GrafoDirigido.add_edge(8,7)
-GrafoDirigido.add_edge(8,9)
-GrafoDirigido.add_edge(9,10)
-GrafoDirigido.add_edge(9,11)
-GrafoDirigido.add_edge(10,12)
-GrafoDirigido.add_edge(11,4)
-GrafoDirigido.add_edge(11,12)
-GrafoDirigido.add_edge(12,9)
+GrafoDirigido.add_edges_from(([0,1], [0,5], [2,0], [2,3], [3,2], [3,5], [4,2], [4,3], [5,4], [6,0], [6,4], [6,9], [7,6], [7,8], [8,7], [8,9], [9,10], [9,11], [10,12], [11,4], [11,12], [12,9]))
 
 numComponente, vetorComponentes = componentesFortes(GrafoDirigido)
 
@@ -138,11 +99,15 @@ for vetorComponentes in conjuntoComponentes:
                 if n in vetorComponentes:
                     Componentes.add_edges_from([(vertice, n)])
     if Componentes.number_of_nodes() > 0:
+        plt.figure("Grafo Original")
+        drawGraph(GrafoDirigido)
+        plt.figure("Componente")
         drawGraph(Componentes)
+        plt.show()
         Componentes.clear()
 
 
-# Teste do método nativo
+''' Teste do método nativo
 
 print([
     len(c)
@@ -154,6 +119,4 @@ for c in nx.strongly_connected_components(GrafoDirigido):
     for v in c:
         print(v)
 
-print(len(list(nx.strongly_connected_components(GrafoDirigido))))
-
-# drawGraph(GrafoDirigido)
+print(len(list(nx.strongly_connected_components(GrafoDirigido)))) '''
