@@ -28,7 +28,7 @@ def aumentarEmparelhamento(Grafo: nx.Graph(), coloracao, match):
     visitado = [False for i in range(Grafo.number_of_nodes())]
     caminho = [0 for i in range(Grafo.number_of_nodes())]
 
-    fila = q = queue.Queue()
+    fila = queue.Queue()
 
     for no in Grafo.nodes():
         if coloracao[no] == 0 and match[no] == -1:
@@ -70,10 +70,22 @@ GrafoBipartido.add_nodes_from(['a','b','c','d'], bipartite = 0)
 
 GrafoBipartido.add_nodes_from(['e','f','g','h'], bipartite = 1)
 
-GrafoBipartido.add_weighted_edges_from([('a','e',7), ('a','f',4), ('a','g',3), ('a','h',5)])
-GrafoBipartido.add_weighted_edges_from([('b','e',6), ('b','f',8), ('b','g',5), ('b','h',9)])
-GrafoBipartido.add_weighted_edges_from([('c','e',9), ('c','f',4), ('c','g',4), ('c','h',2)])
-GrafoBipartido.add_weighted_edges_from([('d','e',3), ('d','f',8), ('d','g',7), ('d','h',4)])
+GrafoBipartido.add_weighted_edges_from([('a','e',7), 
+('a','f',4), 
+('a','g',3), 
+('a','h',5)])
+GrafoBipartido.add_weighted_edges_from([('b','e',6), 
+('b','f',8), 
+('b','g',5), 
+('b','h',9)])
+GrafoBipartido.add_weighted_edges_from([('c','e',9), 
+('c','f',4), 
+('c','g',4), 
+('c','h',2)])
+GrafoBipartido.add_weighted_edges_from([('d','e',3), 
+('d','f',8), 
+('d','g',7), 
+('d','h',4)])
 
 
 GrafoInteiro = nx.convert_node_labels_to_integers(GrafoBipartido)

@@ -85,6 +85,7 @@ for e in Grafo.edges():
     print(f'{v1} - {v2} = ', end='')
     print(Grafo[v1][v2]['weight'])
 
+GrafoInteiro = nx.convert_node_labels_to_integers(Grafo)
 
 plt.figure("Grafo")
 nx.draw_networkx(Grafo, pos= nx.spring_layout(Grafo), with_labels=True)
