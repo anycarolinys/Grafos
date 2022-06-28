@@ -1,5 +1,6 @@
 # Algoritmo de Tarjan
 # Este algoritmo é implmentando pelo método 'nx.strongly_connected_components' da biblioteca Networkx
+# Referência: https://www.ime.usp.br/~pf/algoritmos_para_grafos/aulas/tarjan.html
 import networkx as nx
 import matplotlib.pyplot as plt
 from Stack import Stack

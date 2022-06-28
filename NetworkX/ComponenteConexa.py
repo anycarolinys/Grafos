@@ -1,4 +1,5 @@
 # Componentes Conexas para Grafos não dirigidos
+# Referência: https://www.ime.usp.br/~pf/algoritmos_para_grafos/aulas/components.html
 import networkx as nx
 import matplotlib.pyplot as plt
 
