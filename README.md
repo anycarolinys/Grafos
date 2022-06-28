@@ -7,5 +7,7 @@ Representação e algoritmos computacionais para Grafos.
 * Algoritmo de Dijkstra
 * Algoritmo de Prim
 * Algoritmo Húngaro
+* Algoritmo de Tarjan
+* Algoritmo de Componentes Conexas
 * Biblioteca NetworkX  
 <img src="Images/graph.gif">
